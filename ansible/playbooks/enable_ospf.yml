@@ -1,0 +1,39 @@
+- name: Enable Router OSPF on edge router
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Create OSPF process
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+            - process_id: 10
+              router_id: "1.1.1.1"
+        state: merged
+
+    - name: Enable OSPF on interfaces
+      cisco.ios.ios_ospf_interfaces:
+        config:
+          - name: Loopback0
+            address_family:
+              - afi: ipv4
+                process:
+                  id: 10
+                  area_id: 0
+          - name: GigabitEthernet0/1
+            address_family:
+              - afi: ipv4
+                process:
+                  id: 10
+                  area_id: 0
+          - name: GigabitEthernet0/0
+            address_family:
+              - afi: ipv4
+                process:
+                  id: 10
+                  area_id: 0
+        state: merged
+    - name: Save configuration to NVRAM
+      cisco.ios.ios_config:
+        save_when: always
+

@@ -1,0 +1,17 @@
+- name: Assign IP address to edge router
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Assign IPv4 address to internal interface
+      cisco.ios.ios_config:
+        lines:
+          - description internal interface
+          - ip address 192.168.0.1 255.255.255.0
+          - no shutdown
+        parents: interface gigabitethernet0/1
+        
+    - name: Save configuration to NVRAM
+      cisco.ios.ios_config:
+        save_when: always
+

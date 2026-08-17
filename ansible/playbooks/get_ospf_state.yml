@@ -1,0 +1,13 @@
+- name: Get OSPF state and print
+  hosts: routers
+  gather_facts: false
+  tasks:
+  - name: Get OSPF neighbor state
+    cisco.ios.ios_command:
+      commands:
+        - show ip ospf neighbor
+    register: ospf_neighbors
+  - name: print output
+    ansible.builtin.debug:
+      var: ospf_neighbors
+

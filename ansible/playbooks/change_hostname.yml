@@ -1,0 +1,15 @@
+- name: Change Router Hostname
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Set new hostname
+      cisco.ios.ios_hostname:
+        config:
+          hostname: "ExtRouter"
+        state: merged
+    - name: Save configuration to NVRAM
+      cisco.ios.ios_config:
+        save_when: always
+
