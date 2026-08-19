@@ -37,8 +37,8 @@ The CML VM runs at `10.0.0.23` on my Proxmox server, and the topology connects o
 
 Before Ansible can take over, the external facing interface must be brought up manually on the border router because Ansible needs a reachable, addressed interface to connect to in the first place.
 
-- **ExtRouter `G0/0`: `10.0.0.10`** - assigned manually and placed on the home LAN so Ansible can reach my LAN
-- **ExtRouter `G0/1`: `192.168.0.1`** - assigned with the `assign_ipv4.yml` playbook once the `G0/0` interface was up. 
+- ExtRouter `G0/0`: `10.0.0.10` - assigned manually and placed on the home LAN so Ansible can reach my LAN
+- ExtRouter `G0/1`: `192.168.0.1` - assigned with the `assign_ipv4.yml` playbook once the `G0/0` interface was up. 
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ pip install pyats genie
 
 ## Inventory
 
-The inventory is not committed because it contains device addresses and credentials. Create your own at `ansible/inventory/inventory`. A minimal example:
+Inventory is not committed because it contains credentials. Create your own at `ansible/inventory/inventory`. Example below:
 
 ```ini
 [routers]
