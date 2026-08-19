@@ -3,11 +3,12 @@
   gather_facts: false
   tasks:
   - name: Get OSPF neighbor state
-    cisco.ios.ios_command:
-      commands:
-        - show ip ospf neighbor
-    register: ospf_neighbors
-  - name: print output
+    ansible.utils.cli_parse:
+      command: "show ip ospf neighbor"
+      parser:
+        name: ansible.netcommon.pyats
+      set_fact: ospf_parsed
+  - name: print output parsed
     ansible.builtin.debug:
-      var: ospf_neighbors
+      var: ospf_parsed
 
